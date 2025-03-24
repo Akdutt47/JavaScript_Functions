@@ -43,8 +43,6 @@ function checkAge(userName = "Guest", age) {
         console.log(belowSixteen);
     }
 }
-
-// Example calls
 console.log("Exercise 2: Legal?");
 checkAge("Alice", 18);
 checkAge("Bob", 14);
@@ -113,7 +111,6 @@ function dataPlanStatus(planLimit, day, usage) {
     let averageDailyUse = usage / day;
     let projectedUsage = averageDailyUse * 30;
     let remainingData = planLimit - usage;
-    let idealDailyUsage = planLimit / 30;
     let remainingDailyAllowance = remainingData / daysRemaining;
 
     console.log(`${day} days used, ${daysRemaining} days remaining.`);
