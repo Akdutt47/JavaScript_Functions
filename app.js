@@ -2,69 +2,135 @@ console.log("Hello World!\n==========\n");
 
 // Exercise 1: Print Odds Continued
 function printOdds(count) {
-    // Check if the count is negative
+    if (typeof count !== "number") {
+        console.log("Please enter a valid number.");
+        return;
+    }
+
     if (count < 0) {
-      console.log("Please enter a positive number.");
-      return; // Exit the function if count is negative
+        console.log("Negative count detected. Counting in reverse.");
     }
-  
-    // Loop through numbers from 1 to count
-    for (let i = 1; i <= count; i++) {
-      if (i % 2 !== 0) { // Check if the number is odd
-        console.log(i); // Print odd numbers
-      }
+
+    for (let i = 1; Math.abs(i) <= Math.abs(count); i++) {
+        if (i % 2 !== 0) {
+            console.log(i);
+        }
     }
-  }
-  
+}
+
+console.log("Exercise 1: Print Odds");
+printOdds(10);
+printOdds(-5);
+printOdds(15);
+console.log("\n");
+
+
+
 
 // Exercise 2: Legal?
-function checkAge(userName = "User", age = 0) { // Default values for parameters
-    // Declare local variables for the messages
-    let aboveSixteen = `Congrats ${userName}, you can drive!`;
-    let belowSixteen = `Sorry ${userName}, but you need to wait until you're 16.`;
-  
-    // If the age is less than 16, print belowSixteen message
-    if (age < 16) {
-      console.log(belowSixteen);
-    } else {
-      console.log(aboveSixteen);
+function checkAge(userName = "Guest", age) {
+    if (age === undefined || typeof age !== "number") {
+        console.log("Please provide a valid age.");
+        return;
     }
-  }
 
-  // Exercise 3: Which Quadrant?
-function whichQuadrant(x, y) {
-    // Check if the point is on the x-axis or y-axis
-    if (x === 0 && y !== 0) {
-      console.log(`(${x}, ${y}) is on the y axis`);
-    } else if (y === 0 && x !== 0) {
-      console.log(`(${x}, ${y}) is on the x axis`);
-    } else if (x > 0 && y > 0) {
-      console.log(`(${x}, ${y}) is in Quadrant 1`);
-    } else if (x < 0 && y > 0) {
-      console.log(`(${x}, ${y}) is in Quadrant 2`);
-    } else if (x < 0 && y < 0) {
-      console.log(`(${x}, ${y}) is in Quadrant 3`);
-    } else if (x > 0 && y < 0) {
-      console.log(`(${x}, ${y}) is in Quadrant 4`);
+    const aboveSixteen = `Congrats ${userName}, you can drive!`;
+    const belowSixteen = `Sorry ${userName}, but you need to wait until you're 16.`;
+
+    if (age >= 16) {
+        console.log(aboveSixteen);
     } else {
-      console.log(`(${x}, ${y}) is at the origin`);
+        console.log(belowSixteen);
     }
-  }
+}
+
+// Example calls
+console.log("Exercise 2: Legal?");
+checkAge("Alice", 18);
+checkAge("Bob", 14);
+checkAge(); // Missing parameters test
+console.log("\n");
+
+
+
+// Exercise 3: Which Quadrant?
+function findQuadrant(x, y) {
+    if (x === 0 && y === 0) {
+        console.log("The point is at the origin.");
+    } else if (x === 0) {
+        console.log(`(${x}, ${y}) is on the y-axis.`);
+    } else if (y === 0) {
+        console.log(`(${x}, ${y}) is on the x-axis.`);
+    } else if (x > 0 && y > 0) {
+        console.log(`(${x}, ${y}) is in Quadrant 1.`);
+    } else if (x < 0 && y > 0) {
+        console.log(`(${x}, ${y}) is in Quadrant 2.`);
+    } else if (x < 0 && y < 0) {
+        console.log(`(${x}, ${y}) is in Quadrant 3.`);
+    } else {
+        console.log(`(${x}, ${y}) is in Quadrant 4.`);
+    }
+}
+
+console.log("Exercise 3: Which Quadrant?");
+findQuadrant(0, 2);
+findQuadrant(1, 2);
+findQuadrant(-6, 18);
+findQuadrant(0, 0);
+findQuadrant(-3, -7);
+findQuadrant(5, -2);
+console.log("\n");
+
+
 
   // Exercise 4: What type of triangle?
-function checkTriangleType(side1, side2, side3) {
-    // Check if the sides form a valid triangle
-    if (side1 + side2 <= side3 || side1 + side3 <= side2 || side2 + side3 <= side1) {
-      return "Invalid triangle";
-    }
-  
-    // Determine the type of triangle
-    if (side1 === side2 && side2 === side3) {
-      return "Equilateral triangle";
-    } else if (side1 === side2 || side1 === side3 || side2 === side3) {
-      return "Isosceles triangle";
+function triangleType(a, b, c) {
+    if (a + b <= c || a + c <= b || b + c <= a) {
+        return "Invalid triangle";
+    } else if (a === b && b === c) {
+        return "Equilateral triangle";
+    } else if (a === b || a === c || b === c) {
+        return "Isosceles triangle";
     } else {
-      return "Scalene triangle";
+        return "Scalene triangle";
     }
-  }
-  
+}
+
+console.log("Exercise 4: What Type of Triangle?");
+console.log(triangleType(1, 2, 2)); // Isosceles
+console.log(triangleType(1, 1, 2)); // Invalid
+console.log(triangleType(3, 3, 3)); // Equilateral
+console.log(triangleType(5, 6, 7)); // Scalene
+console.log("\n");
+
+function dataPlanStatus(planLimit, day, usage) {
+    if (day < 1 || day > 30 || usage < 0 || planLimit <= 0) {
+        console.log("Invalid input values. Please enter valid numbers.");
+        return;
+    }
+
+    let daysRemaining = 30 - day;
+    let averageDailyUse = usage / day;
+    let projectedUsage = averageDailyUse * 30;
+    let remainingData = planLimit - usage;
+    let idealDailyUsage = planLimit / 30;
+    let remainingDailyAllowance = remainingData / daysRemaining;
+
+    console.log(`${day} days used, ${daysRemaining} days remaining.`);
+    console.log(`Average daily use: ${averageDailyUse.toFixed(2)} GB/day.`);
+
+    if (projectedUsage > planLimit) {
+        console.log(`You are exceeding your data plan! Reduce your daily usage to ${remainingDailyAllowance.toFixed(2)} GB/day.`);
+    } else if (projectedUsage < planLimit) {
+        console.log(`You are under your data limit. You can use up to ${remainingDailyAllowance.toFixed(2)} GB/day.`);
+    } else {
+        console.log("You are exactly on track with your data plan.");
+    }
+}
+console.log("Bonus Exercise 5: Data Plan Status");
+dataPlanStatus(100, 15, 56);
+dataPlanStatus(50, 20, 30);
+dataPlanStatus(200, 10, 50);
+dataPlanStatus(10, 5, 10); // Edge case test
+console.log("\n");
+
